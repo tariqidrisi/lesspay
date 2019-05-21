@@ -7,7 +7,7 @@
 	        <h1 class="jumbotron-heading"><i class="icon-large icon-shopping-cart"></i>YOUR CART</h1>
 	     </div>
 	</section>
-	
+		
 	<div class="container mb-4">
 		<form name="personal" method="POST" action="">
 			<div class="row">
