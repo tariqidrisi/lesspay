@@ -9,7 +9,8 @@
 	</section>
 		
 	<div class="container mb-4">
-		<form name="personal" method="POST" action="">
+		<form name="personal" method="POST" action="{{ route('placeOrder') }}">
+			@csrf
 			<div class="row">
 	        <div class="col-12">
 	            <div class="table-responsive">
@@ -26,16 +27,18 @@
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-	                    
+	                    	<?php $ctr = 0; ?>
 	                        @foreach($productsInCartFromSession['products'] as $product)
+	                        <input type="hidden" name="product_id" class="product_id" id="product_id" value="{{ $product['product_id'] }}">
 	                        <tr>
 	                            <td class="text-right"><button class="btn btn-sm btn-danger removeFromCart" id="{{ $product['product_id'] }}"><i class="fa fa-trash"></i> </button> </td>
-	                        	<td>{{ $product['name'] }}</td>
+	                        	<td>{{ $product['product_id'] }}</td>
 	                            <td>In stock</td>
-	                            <td><input class="form-control text-right qty" type="text" name="qty" value="1" /></td>
+	                            <td><input class="form-control text-right qty" type="text" name="qty{{ $ctr }}" value="1" /></td>
 	                            <input type="hidden" name="" class="basePrice" id="basePrice" value="{{ $product['price'] }}">
 	                            <td class="text-right price" id="price">{{ $product['price'] }} $</td>
 	                        </tr>
+	                        <?php $ctr++; ?>
 	                        @endforeach
 	                    	<tr>
 	                            <td></td>
@@ -94,7 +97,7 @@
 							  <input type="text" class="form-control" id="name" name="name" value="" required="">
 							</div>
 							<div class="form-group">
-							  <label for="pwd">Address:</label>
+							  <label for="pwd">Shippping Address:</label>
 							  <textarea class="form-control" name="address" id="address" required=""></textarea>
 							</div>
 					        <div class="form-group">
@@ -136,7 +139,7 @@
 		                    <a href="/" class="btn btn-block btn-light">Continue Shopping</a>
 		                </div>
 		                <div class="col-sm-12 col-md-6 text-right">
-		                    <button type="submit" class="btn btn-lg btn-block btn-success text-uppercase">Place Order</button>
+		                    <button type="submit" class="btn btn-lg btn-block btn-success text-uppercase" id="placeOrder">Place Order</button>
 		                </div>
 		            </div>
 		        </div>
@@ -191,6 +194,24 @@
 			$(".sub_total").text(sum+" $"); 
 			calculateShipping();    	
 	    });
+
+	    // // place order
+	    // $("#placeOrder").click(function(){
+
+	    // 	var name = $("#name").val();
+	    // 	var address = $("#address").val();
+	    // 	var mobile = $("#mobile").val();
+	    // 	var email = $("#email").val();
+	    // 	var card_name = $("#card_name").val();
+	    // 	var bill_address = $("#bill_address").val();
+	    // 	var ccno = $("#ccno").val();
+	    // 	var expiry_date = $("#expiry_date").val();
+	    // 	var cvv = $("#cvv").val();
+
+	    // 	$.post("{{ route('placeOrder') }}", { "name": name, "address": address, "mobile": mobile,"email": email,"card_name": card_name,"bill_address": bill_address,"ccno": ccno,"expiry_date": expiry_date,"cvv": cvv, "_token": "{{ csrf_token() }}", }, function(data){
+		        
+		   //  });
+	    // });
 
 	});
 

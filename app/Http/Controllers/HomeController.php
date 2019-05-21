@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $featured_med = Products::get();
+        $featured_med = Products::orderBy("product_id", "ASC")->get();
         // dd($featured_med);
         return view('index', compact('featured_med'));
     }
@@ -94,5 +94,9 @@ class HomeController extends Controller
         $data['yourCart'] = $request->session()->get('cart');
 
         return $data;
+    }
+
+    public function placeOrder(Request $request) {
+        dd($request);
     }
 }

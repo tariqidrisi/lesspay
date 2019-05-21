@@ -32,9 +32,9 @@
               @foreach($featured_med as $med)
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
-                        <img class="card-img-top prod-image" src="{{ env('APP_URL') }}{{ Storage::url("$med->image") }}" alt="Card image cap">
+                        <img class="card-img-top prod-image" src="{{ env('APP_URL') }}{{ Storage::url("$med->image") }}" alt="{{ $med->product_id }}">
                         <div class="card-body">
-                            <h4 class="card-title" ><a href="product.html" title="Price" style="font-size: 16px;color:black" class="prod-name">{{ $med->name }}</a></h4>
+                            <h4 class="card-title" ><span style="font-size: 25px;color:#007bff" class="prod-name">{{ $med->product_id }}</a></h4>
                             <div class="row">
                                 <div class="col">
                                     <p class="btn btn-primary btn-block prod-price">{{$med->price}} $</p>

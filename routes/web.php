@@ -18,6 +18,7 @@ Route::get('/getCart', 'HomeController@getCart')->name('getCart');
 Route::post('/removeFromCart', 'HomeController@removeFromCart')->name('removeFromCart');
 // Route::post('/addToCart', 'HomeController@addToCart')->name('addToCart');
 Route::match(['get', 'post'], '/addToCart', 'HomeController@addToCart')->name('addToCart');
+Route::post('/placeOrder', 'HomeController@placeOrder')->name('placeOrder');
 
 // backend 
 // laravel default auth feature 
