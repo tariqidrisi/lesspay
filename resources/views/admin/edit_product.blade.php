@@ -11,13 +11,13 @@
            <div class="form">
               <form action="{{ route('editProduct') }}" method="post" id="addProduct" name="addProduct" role="form" enctype="multipart/form-data">
                  @csrf
-                 {{dd( env('APP_URL') }}{{ Storage::url($data->image) )}}
+                 
                  <input type="hidden" name="id" value="{{ $data->id }}">
                  <input type="text" required="" placeholder="Product Id" value="{{ $data->product_id }}" name="product_id" class="txt">
                  <input type="text" required="" placeholder="Product Name" value="{{ $data->name }}" name="name" class="txt">
                  <input type="text" required="" placeholder="Product Price" value="{{ $data->price }}" name="price" class="txt">
                  <input type="file" name="file" id="prod-img">
-                 <img src="{{ env('APP_URL') }}{{ Storage::url($data->image) }}" name="img" id="prod-img-tag" width="200px" style="display: block" />
+                 <img src="{{ Storage::url($data->image) }}" name="img" id="prod-img-tag" width="200px" style="display: block" />
                  <input type="submit" value="Update" name="submit" class="txt2">
               </form>
            </div>
