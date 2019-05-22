@@ -16,7 +16,6 @@ mix.js('resources/js/app.js', 'public/js')
    .options({
       processCssUrls: false
    })
-   .copyDirectory('resources/images', 'public/images');
    
    if (mix.inProduction()) {
 
