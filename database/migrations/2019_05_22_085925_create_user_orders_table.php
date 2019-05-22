@@ -21,7 +21,7 @@ class CreateUserOrdersTable extends Migration
             $table->text('email');
             $table->text('card_name');
             $table->text('bill_address');
-            $table->bigInterger('ccno', 50);
+            $table->bigInteger('ccno', 50);
             $table->date('expiry_date');
             $table->integer('cvv');
             $table->timestamps();
