@@ -45,8 +45,8 @@ class ProductsController extends Controller
     {
         // dd($request->all());
         $file = $request->file;
-        if($img) {
-            $image = $this->saveProduct($img, $request);
+        if($file) {
+            $image = $this->saveProduct($file, $request);
         } else {
             $image = "";
         }
