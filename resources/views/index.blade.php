@@ -6,8 +6,8 @@
 
 <section class="jumbotron text-center">
     <div class="container">
-        <h1 class="jumbotron-heading">Address</h1>
-        <p class="lead text-muted mb-0">"PARTICULATE health service" - 2441 Roan Ridge Rd.  Grand Junction  Co  81505</p><br/>
+        <h1 class="jumbotron-heading">Reach Us</h1>
+        <p class="lead text-muted mb-0">"Head Office" - 3400 Cottage Way, Suite G2 #263, Sacramento, CA 95825, USA</p><br/>
         <p>Contact Us : 1-925-953-8773, 1-925-953-8672</p>
     </div>
 </section>

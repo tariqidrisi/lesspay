@@ -22,23 +22,24 @@
 	                            <th> </th>
 	                            <th scope="col">Product</th>
 	                            <th scope="col">Available</th>
-	                            <th scope="col" class="text-center">Quantity</th>
+	                            <th scope="col" class="text-center">Package</th>
 	                            <th scope="col" class="text-right">Price</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-	                    	<?php $ctr = 0; ?>
+	                    	<?php $ctr = 0; $tot = 0; ?>
 	                        @foreach($productsInCartFromSession['products'] as $product)
-	                        <input type="hidden" name="product_id" class="product_id" id="product_id" value="{{ $product['product_id'] }}">
+	                        <input type="hidden" name="product_id{{ $ctr }}" class="product_id" id="product_id" value="{{ $product['product_id'] }}">
+	                        
 	                        <tr>
 	                            <td class="text-right"><button class="btn btn-sm btn-danger removeFromCart" id="{{ $product['product_id'] }}"><i class="fa fa-trash"></i> </button> </td>
 	                        	<td>{{ $product['product_id'] }}</td>
 	                            <td>In stock</td>
-	                            <td><input class="form-control text-right qty" type="text" name="qty{{ $ctr }}" value="1" /></td>
-	                            <input type="hidden" name="" class="basePrice" id="basePrice" value="{{ $product['price'] }}">
+	                            <td><input class="form-control text-right qty" type="number" name="qty{{ $ctr }}" value="1" /></td>
+	                            <input type="hidden" name="basePrice{{ $ctr }}" class="basePrice" id="basePrice" value="{{ $product['price'] }}">
 	                            <td class="text-right price" id="price">{{ $product['price'] }} $</td>
 	                        </tr>
-	                        <?php $ctr++; ?>
+	                        <?php $ctr++; $total = $tot + $product['price']; ?>
 	                        @endforeach
 	                    	<tr>
 	                            <td></td>
@@ -64,6 +65,7 @@
 	                            <td></td>
 	                            <td></td>
 	                            <td></td>
+	                            <input type="hidden" name="total" class="total" id="total" value="{{ $total }}">
 	                            <td><strong>Total</strong></td>
 	                            <td class="text-right"><strong class="total"></strong></td>
 	                        </tr>
@@ -118,15 +120,15 @@
 							</div>
 							<div class="form-group">
 							  <label for="usr">Credit Card Number:</label>
-							  <input type="text" class="form-control" id="ccno" name="ccno" required="">
+							  <input type="number" class="form-control" id="ccno" name="ccno" required="">
 							</div>
 							<div class="form-group">
 							  <label for="usr">Expiry Date:</label>
-							  <input type="text" class="form-control" id="expiry_date" name="expiry_date" required="">
+							  <input type="date" class="form-control" id="expiry_date" name="expiry_date" required="">
 							</div>
 							<div class="form-group">
-							  <label for="usr">CVV:</label>
-							  <input type="text" class="form-control" id="cvv" name="cvv" required="">
+							  <label for="cvv">CVV:</label>
+							  <input type="number" class="form-control" id="cvv" name="cvv" required="">
 							</div>
 					      </div>
 					    </div>

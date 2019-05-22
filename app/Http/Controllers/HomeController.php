@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Products;
+use App\userOrders;
+use App\Orders;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -97,6 +99,62 @@ class HomeController extends Controller
     }
 
     public function placeOrder(Request $request) {
-        dd($request);
+        // dd($request->all());
+        // package of medicines
+        $packageOrQty = $this->find($request, 'qty');
+        $medicines = $this->find($request, 'product');
+        $corders = array_combine($medicines, $packageOrQty);
+        // dd($corders);
+        // first insert user record and get id
+        $userOrders = new userOrders;
+        $userOrders->name = request('name');
+        $userOrders->address = request('address');
+        $userOrders->mobile = request('mobile');
+        $userOrders->email = request('email');
+        $userOrders->card_name = request('card_name');
+        $userOrders->bill_address = request('bill_address');
+        $userOrders->ccno = request('ccno');
+        $userOrders->expiry_date = request('expiry_date');
+        $userOrders->cvv = request('cvv');
+        $userOrders->save();
+        // dd($userOrders);
+
+        $userId = userOrders::select('id')->orderBy('id', "DESC")->first();
+        $user_id = $userId->id;
+        
+        // save customer id
+        foreach ($corders as $key => $value) {
+            $orders = new Orders;
+            
+            $orders->user_id = $user_id;
+            $orders->produt_id = $key;
+            $orders->package = $value;
+            $orders->save();
+        }
+        // dd("asdasd");
+        if ($orders) {
+            $msg = "Your order has been placed.";
+            $request->session()->forget('cart');
+        }
+        
+        return view("thankyou", compact('msg'));
+    }
+
+    public function find($request, $search) {
+        // the array you'll search in
+        $array = $request->all();
+        // filter the array and assign the returned array to variable
+        $result = array_filter(
+            // the array you wanna search in
+            $array, 
+            // callback function to search for certain sting
+            function ($key) use($search) { 
+                return(strpos($key,$search) !== false);
+            }, 
+            // flag to let the array_filter(); know that you deal with array keys
+            ARRAY_FILTER_USE_KEY
+        );
+
+        return $result;
     }
 }
