@@ -11,7 +11,7 @@
            <div class="form">
               <form action="{{ route('editProduct') }}" method="post" id="addProduct" name="addProduct" role="form" enctype="multipart/form-data">
                  @csrf
-                 {{dd(Storage::url($data->image) )}}
+                 
                  <input type="hidden" name="id" value="{{ $data->id }}">
                  <input type="text" required="" placeholder="Product Id" value="{{ $data->product_id }}" name="product_id" class="txt">
                  <input type="text" required="" placeholder="Product Name" value="{{ $data->name }}" name="name" class="txt">
