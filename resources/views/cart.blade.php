@@ -20,7 +20,8 @@
 	                        <tr>
 	                            <!-- <th scope="col"> </th> -->
 	                            <th> </th>
-	                            <th scope="col">Product</th>
+	                            <th scope="col">Product Id</th>
+	                            <th scope="col">Product Name (Package)</th>
 	                            <th scope="col">Available</th>
 	                            <th scope="col" class="text-center">Package</th>
 	                            <th scope="col" class="text-right">Price</th>
@@ -34,6 +35,7 @@
 	                        <tr>
 	                            <td class="text-right"><button class="btn btn-sm btn-danger removeFromCart" id="{{ $product['product_id'] }}"><i class="fa fa-trash"></i> </button> </td>
 	                        	<td>{{ $product['product_id'] }}</td>
+	                        	<td>{{ $product['name'] }}</td>
 	                            <td>In stock</td>
 	                            <td><input class="form-control text-right qty" type="number" name="qty{{ $ctr }}" value="1" /></td>
 	                            <input type="hidden" name="basePrice{{ $ctr }}" class="basePrice" id="basePrice" value="{{ $product['price'] }}">
@@ -45,10 +47,12 @@
 	                            <td></td>
 	                            <td></td>
 	                            <td></td>
+	                            <td></td>
 	                            <td>Sub-Total</td>
 	                            <td class="text-right sub_total"></td>
 	                        </tr>
 	                        <tr>
+	                            <td></td>
 	                            <td></td>
 	                            <td></td>
 	                            <td></td>
@@ -62,6 +66,7 @@
 	                            <td class="text-right shipping-price">20 $</td>
 	                        </tr>
 	                        <tr>
+	                            <td></td>
 	                            <td></td>
 	                            <td></td>
 	                            <td></td>
@@ -86,8 +91,8 @@
 				  	<div class="">
 					    <div class="" id="headingTwo">
 					      <h5 class="mb-0">
-					        <button class="btn btn-block btn-light collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="background-color: darkgray;    margin-bottom: 15px;">
-					          Click here!! to enter personal details
+					        <button class="btn btn-block btn-light collapsed text-uppercase" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="background-color: darkgray;    margin-bottom: 15px;">
+					          Place and Order
 					        </button>
 					      </h5>
 					    </div>
@@ -131,18 +136,20 @@
 							  <input type="number" class="form-control" id="cvv" name="cvv" required="">
 							</div>
 					      </div>
+
+					      <div class="col-sm-12 col-md-6 text-right">
+		                    <button type="submit" class="btn btn-lg btn-block btn-success text-uppercase" id="placeOrder" style="margin-bottom: 15px">Submit</button>
+		                  </div>
 					    </div>
 				  	</div>
 			  	</div>
 
 		        <div class="col mb-2">
 		            <div class="row">
-		                <div class="col-sm-12  col-md-6">
-		                    <a href="/" class="btn btn-block btn-light">Continue Shopping</a>
+		                <div class="col-sm-12  col-md-12">
+		                    <a href="/" class="btn btn-block btn-light btn-success text-uppercase " style="background-color: darkgray;    margin-bottom: 15px;">Or Continue Shopping</a>
 		                </div>
-		                <div class="col-sm-12 col-md-6 text-right">
-		                    <button type="submit" class="btn btn-lg btn-block btn-success text-uppercase" id="placeOrder">Place Order</button>
-		                </div>
+		                
 		            </div>
 		        </div>
 	        @endif

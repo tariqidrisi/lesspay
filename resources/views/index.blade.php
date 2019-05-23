@@ -34,10 +34,10 @@
                     <div class="card">
                         <img class="card-img-top prod-image" src="{{ env('APP_URL') }}{{ Storage::url("$med->image") }}" alt="{{ $med->product_id }}">
                         <div class="card-body">
-                            <h4 class="card-title" ><span style="font-size: 25px;color:#007bff" class="prod-name">{{ $med->product_id }}</a></h4>
+                            <h4 class="card-title" ><span style="font-size: 15px;color:#007bff" class="prod-name">{{ $med->name }}</a></h4>
                             <div class="row">
                                 <div class="col">
-                                    <p class="btn btn-primary btn-block prod-price">{{$med->price}} $</p>
+                                    <p class="prod-price" style="text-decoration: line-through; font-size: 25px">{{$med->price}} / {{$med->price}} $</p>
                                 </div>
                                 <div class="col" id="{{ $med->product_id }}">
                                   <input type="hidden" name="prod_id" value="{{ $med->product_id }}" class="prod-id">
@@ -57,7 +57,10 @@
                                       $index = array_search($med->product_id,$exist);
                                       
                                       if($index !== FALSE){ ?>
-                                        <button class="btn btn-success btn-block gotoCart" disabled="">Already in Cart</button>
+                                        <p class="">
+                                          <span class="checkmark"><div class="check"></div></span>
+                                               Added 
+                                        </p>
                                     <?php   
                                       } else { ?>
                                         <button class="btn btn-success btn-block gotoCart">Add to cart</button>
@@ -103,8 +106,8 @@
     $(".gotoCart").on("click", function(){
       // i = i+1;
       // $(".cartCount").html(i);
-      $(this).html('Go to cart');
-      $(this).removeClass('gotoCart');
+      $(this).removeClass('gotoCart, btn, btn-success');
+      $(this).html('<p class=""><span class="checkmark"><div class="check"></div></span>Added</p>');
       $(this).attr("disabled", true);
       arrOne.push($(this).parent().attr("id"));
 
