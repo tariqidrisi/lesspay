@@ -85,7 +85,7 @@
 	                </table>
 	                @else 
 	                <table class="table table-striped">
-	                	<tr class="text-center">Your cart is empty. <a href="/">Buy Something</a></tr>
+	                	<tr class="text-center">Your <span class="glyphicon glyphicon-shopping-cart"></span> cart is empty. <a href="/">Buy Something</a></tr>
 	                </table>
 	                @endif
 	            </div>
