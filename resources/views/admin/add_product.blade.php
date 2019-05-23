@@ -13,7 +13,8 @@
                  @csrf
                  <input type="text" required="" placeholder="Product Id" value="" name="product_id" class="txt">
                  <input type="text" required="" placeholder="Product Name" value="" name="name" class="txt">
-                 <input type="text" required="" placeholder="Product Price" value="" name="price" class="txt">
+                 <input type="text" required="" placeholder="Original Price" value="" name="original_price" class="txt">
+                 <input type="text" required="" placeholder="Discounted Price Price" value="" name="price" class="txt">
                  <input type="number" required="" placeholder="Quantity" value="" name="qty" class="txt">
                  <input type="file" name="file" id="profile-img">
                  <img src="" name="img" id="profile-img-tag" width="200px" style="display: block" />

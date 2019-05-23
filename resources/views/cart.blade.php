@@ -279,7 +279,7 @@
 	  function calculateShipping() {
 	  	if($("#shipping").val() == "Express") {
 			// express
-			$(".shipping-price").html("50 $");
+			$(".shipping-price").html("25 $");
 			var eprice = parseInt($(".shipping-price").text(), 10);
 			var etotal = parseInt($(".sub_total").text()) + parseInt(eprice);
 			

@@ -39,7 +39,7 @@
                             <h4 class="card-title" ><span style="font-size: 15px;color:#007bff" class="prod-name">{{ $med->name }}</a></h4>
                             <div class="row">
                                 <div class="col">
-                                    <p class="prod-price" style="text-decoration: line-through; font-size: 25px">{{$med->price}} / {{$med->price}} $</p>
+                                    <p class="prod-price" ><span style="text-decoration: line-through; font-size: 25px">$ {{$med->price}}</span> / <span>$ {{$med->price}}</span></p>
                                 </div>
                                 <div class="col" id="{{ $med->product_id }}">
                                   <input type="hidden" name="prod_id" value="{{ $med->product_id }}" class="prod-id">

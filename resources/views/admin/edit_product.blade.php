@@ -15,6 +15,7 @@
                  <input type="hidden" name="id" value="{{ $data->id }}">
                  <input type="text" required="" placeholder="Product Id" value="{{ $data->product_id }}" name="product_id" class="txt">
                  <input type="text" required="" placeholder="Product Name" value="{{ $data->name }}" name="name" class="txt">
+                 <input type="text" required="" placeholder="Original Price" value="{{ $data->original_price }}" name="original_price" class="txt">
                  <input type="text" required="" placeholder="Product Price" value="{{ $data->price }}" name="price" class="txt">
                  <input type="number" required="" placeholder="Quantity" value="{{ $data->qty }}" name="qty" class="txt">
                  <input type="file" name="file" id="prod-img">
