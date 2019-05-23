@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Orders;
 use App\Products;
 use App\userOrders;
-use App\Orders;
+use App\Mail\SendMailable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 
 class HomeController extends Controller
 {
@@ -27,7 +30,7 @@ class HomeController extends Controller
     public function index()
     {
         $featured_med = Products::orderBy("product_id", "ASC")->get();
-        // dd($featured_med);
+        // dd($featured_med);        
         return view('index', compact('featured_med'));
     }
 
@@ -73,6 +76,7 @@ class HomeController extends Controller
         $all = array();
         $sum = 0;
         $subtotal = 0;
+
         foreach ($products as $key => $value) {
             $subtotal += $value->price; 
             $all[] = [
@@ -80,6 +84,7 @@ class HomeController extends Controller
                         'product_id' => $value->product_id,
                         'name' => $value->name,
                         'price' => $value->price,
+                        'qty' => $value->qty,
                         'image' => $value->image,
                         'created_at' => $value->created_at,
                         'updated_at' => $value->updated_at,
@@ -117,8 +122,7 @@ class HomeController extends Controller
         $userOrders->expiry_date = request('expiry_date');
         $userOrders->cvv = request('cvv');
         $userOrders->save();
-        // dd($userOrders);
-
+        
         $userId = userOrders::select('id')->orderBy('id', "DESC")->first();
         $user_id = $userId->id;
         
@@ -134,6 +138,7 @@ class HomeController extends Controller
         // dd("asdasd");
         if ($orders) {
             $msg = "Your order has been placed.";
+            Mail::to('tariq.idrishri@pivotroots.com')->send(new SendMailable($userOrders, $orders));
             $request->session()->forget('cart');
         }
         

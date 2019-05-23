@@ -4,7 +4,7 @@
 
 	<section class="jumbotron text-center">
 	    <div class="container">
-	        <h1 class="jumbotron-heading"><i class="icon-large icon-shopping-cart"></i>YOUR CART</h1>
+	        <h1 class="jumbotron-heading"><span class="glyphicon glyphicon-shopping-cart"></span> YOUR CART</h1>
 	     </div>
 	</section>
 		
@@ -30,6 +30,7 @@
 	                    <tbody>
 	                    	<?php $ctr = 0; $tot = 0; ?>
 	                        @foreach($productsInCartFromSession['products'] as $product)
+
 	                        <input type="hidden" name="product_id{{ $ctr }}" class="product_id" id="product_id" value="{{ $product['product_id'] }}">
 	                        
 	                        <tr>
@@ -37,7 +38,9 @@
 	                        	<td>{{ $product['product_id'] }}</td>
 	                        	<td>{{ $product['name'] }}</td>
 	                            <td>In stock</td>
-	                            <td><input class="form-control text-right qty" type="number" name="qty{{ $ctr }}" value="1" /></td>
+	                            <td><div style="float: left;width: 40%;"><input class="form-control text-right qty" type="number" name="qty{{ $ctr }}" value="1" /> </div>
+	                            <div style="float: left;width: 5%;margin-left: 8px;"> <b style="color:red">X</b> </div> 
+	                            	<div style="float: left;width: 40%;"><input class="form-control text-right" type="number" name="pill" value="{{ $product['qty'] }}" readonly="" /></div></td>
 	                            <input type="hidden" name="basePrice{{ $ctr }}" class="basePrice" id="basePrice" value="{{ $product['price'] }}">
 	                            <td class="text-right price" id="price">{{ $product['price'] }} $</td>
 	                        </tr>
@@ -58,10 +61,13 @@
 	                            <td></td>
 	                            <td>
 	                            	Shipping   
-	                            	<select name="shipping" id="shipping">
-	                            		<option value="Standard" selected="">Standard</option>
-	                            		<option value="Express">Express</option>
+	                            	<select name="shipping" id="shipping" 
+	                            	 required="">
+	                            		<option value="" disabled selected>Please select shipping type</option>
+	                            		<option value="Standard">Standard (Delivery 25-27 days)</option>
+	                            		<option value="Express">Express (Delivery 13-15 days)</option>
 	                            	</select>
+	                            	<span class="err-msg" style="display:none;color: red;font-size: 12px;">Please select shipping type.</span>
 	                            </td>
 	                            <td class="text-right shipping-price">20 $</td>
 	                        </tr>
@@ -91,12 +97,12 @@
 				  	<div class="">
 					    <div class="" id="headingTwo">
 					      <h5 class="mb-0">
-					        <button class="btn btn-block btn-light collapsed text-uppercase" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="background-color: darkgray;    margin-bottom: 15px;">
-					          Place and Order
+					        <button class="btn btn-block btn-light collapsed text-uppercase place-order" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="background-color: darkgray;    margin-bottom: 15px;color: #dc3545">
+					          <b><span class="glyphicon glyphicon-arrow-down"></span> Place an Order</b>
 					        </button>
 					      </h5>
 					    </div>
-					    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+					    <div id="collapseTwo" class="collapse orderdiv" aria-labelledby="headingTwo" data-parent="#accordionExample">
 					      <div class="card-body">
 					        
 					        <div class="form-group">
@@ -109,7 +115,7 @@
 							</div>
 					        <div class="form-group">
 							  <label for="usr">Mobile:</label>
-							  <input type="text" class="form-control" id="mobile" name="mobile" required="">
+							  <input type="text" class="form-control" id="mobile" name="mobile" required="" maxlength="10">
 							</div>
 							<div class="form-group">
 							  <label for="usr">Email:</label>
@@ -133,12 +139,15 @@
 							</div>
 							<div class="form-group">
 							  <label for="cvv">CVV:</label>
-							  <input type="number" class="form-control" id="cvv" name="cvv" required="">
+							  <input type="number" class="form-control" id="cvv" name="cvv" required="" maxlength="4">
 							</div>
 					      </div>
 
-					      <div class="col-sm-12 col-md-6 text-right">
+					      <div class="col-sm-12 col-md-3 text-right">
 		                    <button type="submit" class="btn btn-lg btn-block btn-success text-uppercase" id="placeOrder" style="margin-bottom: 15px">Submit</button>
+		                  
+		                    <span class="err-msg" style="display: none;position: absolute;bottom: 10px;width: 100%;color: red;    font-size: 20px;">Please select shipping type.</span>
+		                  
 		                  </div>
 					    </div>
 				  	</div>
@@ -147,7 +156,7 @@
 		        <div class="col mb-2">
 		            <div class="row">
 		                <div class="col-sm-12  col-md-12">
-		                    <a href="/" class="btn btn-block btn-light btn-success text-uppercase " style="background-color: darkgray;    margin-bottom: 15px;">Or Continue Shopping</a>
+		                    <a href="/" class="btn btn-block btn-light btn-success text-uppercase " style="background-color: darkgray;    margin-bottom: 15px;color: #dc3545"><b><span class="glyphicon glyphicon-arrow-right"></span> Continue Shopping</b></a>
 		                </div>
 		                
 		            </div>
@@ -222,7 +231,29 @@
 		   //  });
 	    // });
 
+	    $(".place-order").click(function(){
+	    	selectShippingType();
+	    });
+
+	    $("#shipping").change(function(){
+	    	selectShippingType();
+	    });
+
 	});
+
+	  function selectShippingType() {
+	  	var shipping = $("#shipping").val();
+    	if(shipping == null) {
+    		$("#placeOrder").attr("disabled", "true");
+    		$(".err-msg").show();
+    		$("#shipping").focus();
+    		
+    		// return false;
+    	} else {
+    		$("#placeOrder").removeAttr("disabled");
+    		$(".err-msg").hide();	    		
+    	}
+	  }
 
 	  function calculatePrice(){
 	  	$('table .qty').each(function(){

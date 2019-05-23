@@ -6,9 +6,10 @@
 
 <section class="jumbotron text-center">
     <div class="container">
-        <h1 class="jumbotron-heading">Reach Us</h1>
+        <h1 class="jumbotron-heading"><span class="glyphicon glyphicon-globe"></span> Reach Us</h1>
         <p class="lead text-muted mb-0">"Head Office" - 3400 Cottage Way, Suite G2 #263, Sacramento, CA 95825, USA</p><br/>
-        <p>Contact Us : 1-925-953-8773, 1-925-953-8672</p>
+        <p><span class="glyphicon glyphicon-phone-alt
+"></span> Contact Us : 1-925-953-8773, 1-925-953-8672</p>
     </div>
 </section>
 
@@ -17,7 +18,7 @@
       <div class="col">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Products</li>
             </ol>
         </nav>
@@ -30,6 +31,7 @@
         <div class="col">          
             <div class="row">
               @foreach($featured_med as $med)
+              
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
                         <img class="card-img-top prod-image" src="{{ env('APP_URL') }}{{ Storage::url("$med->image") }}" alt="{{ $med->product_id }}">
@@ -63,7 +65,7 @@
                                         </p>
                                     <?php   
                                       } else { ?>
-                                        <button class="btn btn-success btn-block gotoCart">Add to cart</button>
+                                        <button class="btn btn-success btn-block gotoCart"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</button>
                                     <?php
                                       }
                                     ?>

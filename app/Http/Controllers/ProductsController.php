@@ -99,8 +99,8 @@ class ProductsController extends Controller
      */
     public function update(Request $request)
     {
+        // dd($request->all());
         $img = $request->file;
-        
         if($img) {
             $image = $this->saveProduct($img, $request);
         } else {
