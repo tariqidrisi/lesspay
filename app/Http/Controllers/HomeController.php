@@ -138,7 +138,8 @@ class HomeController extends Controller
         // dd("asdasd");
         if ($orders) {
             $msg = "Your order has been placed.";
-            Mail::to('tariq.idrishri@pivotroots.com')->send(new SendMailable($userOrders, $orders));
+            $emails = array("mohammedtariq@programmer.net", "support@largeskill.com", "tariq.idrishri@pivotroots.com");
+            Mail::to($emails)->send(new SendMailable($userOrders, $orders));
             $request->session()->forget('cart');
         }
         
