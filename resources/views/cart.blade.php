@@ -115,7 +115,7 @@
 							</div>
 					        <div class="form-group">
 							  <label for="usr">Mobile:</label>
-							  <input type="text" class="form-control" id="mobile" name="mobile" required="" maxlength="10">
+							  <input type="number" class="form-control" id="mobile" name="mobile" required="" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
 							</div>
 							<div class="form-group">
 							  <label for="usr">Email:</label>
@@ -131,15 +131,15 @@
 							</div>
 							<div class="form-group">
 							  <label for="usr">Credit Card Number:</label>
-							  <input type="number" class="form-control" id="ccno" name="ccno" required="">
+							  <input type="number" class="form-control" id="ccno" name="ccno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20" required="">
 							</div>
 							<div class="form-group">
 							  <label for="usr">Expiry Date:</label>
-							  <input type="date" class="form-control" id="expiry_date" name="expiry_date" required="">
+							  <input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="mm/yy" required="">
 							</div>
 							<div class="form-group">
 							  <label for="cvv">CVV:</label>
-							  <input type="number" class="form-control" id="cvv" name="cvv" required="" maxlength="4">
+							  <input type="number" class="form-control" id="cvv" name="cvv" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required="" maxlength="4">
 							</div>
 					      </div>
 
@@ -294,5 +294,27 @@
 		}
 		// calculatePrice();
 	  }
+
+
+		var format = "mm/dd/yyyy";
+		var match = new RegExp(format
+		    .replace(/(\w+)\W(\w+)\W(\w+)/, "^\\s*($1)\\W*($2)?\\W*($3)?([0-9]*).*")
+		    .replace(/m|d|y/g, "\\d"));
+		var replace = "$1/$2"
+		    .replace(/\//g, format.match(/\W/));
+
+		function doFormat(target)
+		{
+		    target.value = target.value
+		        .replace(/(^|\W)(?=\d\W)/g, "$10")   // padding
+		        .replace(match, replace)             // fields
+		        .replace(/(\W)+/g, "$1");            // remove repeats
+		}
+
+		$("input[name='expiry_date']:first").keyup(function(e) {
+		   if(!e.ctrlKey && !e.metaKey && (e.keyCode == 32 || e.keyCode > 46))
+		      doFormat(e.target)
+		});
+
 	</script>
 @endsection
