@@ -215,36 +215,7 @@
                            <td class="qty">100</td>
                            <td class="total">$0.00</td>
                         </tr>
-                        <tr>
-                           <td class="no">01</td>
-                           <td class="text-left">
-                              <h3>Website Design</h3>
-                              Creating a recognizable design solution based on the company's existing visual identity
-                           </td>
-                           <td class="unit">$40.00</td>
-                           <td class="qty">30</td>
-                           <td class="total">$1,200.00</td>
-                        </tr>
-                        <tr>
-                           <td class="no">02</td>
-                           <td class="text-left">
-                              <h3>Website Development</h3>
-                              Developing a Content Management System-based Website
-                           </td>
-                           <td class="unit">$40.00</td>
-                           <td class="qty">80</td>
-                           <td class="total">$3,200.00</td>
-                        </tr>
-                        <tr>
-                           <td class="no">03</td>
-                           <td class="text-left">
-                              <h3>Search Engines Optimization</h3>
-                              Optimize the site for search engines (SEO)
-                           </td>
-                           <td class="unit">$40.00</td>
-                           <td class="qty">20</td>
-                           <td class="total">$800.00</td>
-                        </tr>
+                        
                      </tbody>
                      <tfoot>
                         <tr>
