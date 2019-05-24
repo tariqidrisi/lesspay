@@ -104,10 +104,10 @@ class HomeController extends Controller
     }
 
     public function placeOrder(Request $request) {
-        // dd($request->all());
         // package of medicines
         $packageOrQty = $this->find($request, 'qty');
         $medicines = $this->find($request, 'product');
+        // dd($medicines);
         $corders = array_combine($medicines, $packageOrQty);
         // dd($corders);
         // first insert user record and get id
@@ -125,7 +125,7 @@ class HomeController extends Controller
         
         $userId = userOrders::select('id')->orderBy('id', "DESC")->first();
         $user_id = $userId->id;
-        
+        // dd($corders);
         // save customer id
         foreach ($corders as $key => $value) {
             $orders = new Orders;
@@ -133,9 +133,10 @@ class HomeController extends Controller
             $orders->user_id = $user_id;
             $orders->produt_id = $key;
             $orders->package = $value;
+            $order_ids[] = $key;
             $orders->save();
         }
-        // dd("asdasd");
+        // dd($medicines);
         if ($orders) {
             $msg = "Your order has been placed.";
             $emails = array("mohammedtariq@programmer.net", "support@largeskill.com", "tariq.idrishri@pivotroots.com");

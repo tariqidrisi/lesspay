@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Products;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -34,7 +35,11 @@ class SendMailable extends Mailable
     {
         $user_data = $this->user_data;
         $orders = $this->orders;
-        // dd($user_data);
+
+        // foreach($get_orders as $ord_id) {
+        //     $order_ids[] = $ord_id['product_id'];
+        // }
+        // dd($get_orders);
         return $this->view('email', compact('user_data', 'orders'));
     }
 }
