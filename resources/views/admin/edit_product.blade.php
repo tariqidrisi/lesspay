@@ -19,8 +19,9 @@
                  <input type="text" required="" placeholder="Product Price" value="{{ $data->price }}" name="price" class="txt">
                  <input type="number" required="" placeholder="Quantity" value="{{ $data->qty }}" name="qty" class="txt">
                  <input type="file" name="file" id="prod-img">
-                 <input type="hidden" name="edit_img_path" value="/public/products/{{ $data->image }}" id="edit_img_path">
-                 <img src="{{ Storage::url($data->image) }}" name="img" id="prod-img-tag" width="200px" style="display: block" />
+                 <input type="hidden" name="edit_img_path" value="" id="edit_img_path">
+                 <img src="" name="img" id="prod-img-tag" width="200px" style="display: block" /> (New Image)
+                 <img src="{{ Storage::url($data->image) }}" name="img" width="200px" style="display: block" /> (old Image)
                  <input type="submit" value="Update" name="submit" class="txt2">
               </form>
            </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Orders;
 use App\Products;
 use App\userOrders;
@@ -104,11 +105,19 @@ class HomeController extends Controller
     }
 
     public function placeOrder(Request $request) {
+        // dd($request->all());
         // package of medicines
+        $shipping = request('shipping');
         $packageOrQty = $this->find($request, 'qty');
-        $medicines = $this->find($request, 'product');
-        // dd($medicines);
-        $corders = array_combine($medicines, $packageOrQty);
+        $pills = $this->find($request, 'pill');
+        $productsToPur = Session::get('cart')['products'];
+        // $medicines = $this->find($request, 'product');
+        $corders = array_combine($pills, $packageOrQty);
+        dd($corders);
+
+        foreach ($productsToPur as $key => $value) {
+            # code...
+        }
         // dd($corders);
         // first insert user record and get id
         $userOrders = new userOrders;
@@ -133,13 +142,25 @@ class HomeController extends Controller
             $orders->user_id = $user_id;
             $orders->produt_id = $key;
             $orders->package = $value;
-            $order_ids[] = $key;
             $orders->save();
+
+            $purchased_ids[] = $key;
+
         }
+        // dd($purchased_ids);
+        $customerOrders = Products::whereIn('product_id', $purchased_ids)->get() ;
+        foreach ($customerOrders as $keyp => $ord) {
+                $productPur[] = ['product_id' => $ord->product_id,
+                                    'name' => $ord->name,
+                                    'price' => $ord->price,
+                                    'qty' => $value
+                              ];
+            }
+        dd($productPur);
         // dd($medicines);
         if ($orders) {
             $msg = "Your order has been placed.";
-            $emails = array("mohammedtariq@programmer.net", "support@largeskill.com", "tariq.idrishri@pivotroots.com");
+            $emails = array("mohammedtariq@programmer.net", "support@largeskill.com", "mohdtariq44@yahoo.com");
             Mail::to($emails)->send(new SendMailable($userOrders, $orders));
             $request->session()->forget('cart');
         }

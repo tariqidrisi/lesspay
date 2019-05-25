@@ -16,8 +16,9 @@
                  <input type="text" required="" placeholder="Original Price" value="" name="original_price" class="txt">
                  <input type="text" required="" placeholder="Discounted Price Price" value="" name="price" class="txt">
                  <input type="number" required="" placeholder="Quantity" value="" name="qty" class="txt">
-                 <input type="file" name="file" id="profile-img">
-                 <img src="" name="img" id="profile-img-tag" width="200px" style="display: block" />
+                 <input type="file" name="file" id="prod-img">
+                 <input type="hidden" name="edit_img_path" value="" id="edit_img_path">
+                 <img src="" name="img" id="prod-img-tag" width="200px" style="display: block" />
                  <input type="submit" value="Add" name="submit" class="txt2">
               </form>
            </div>
@@ -59,12 +60,12 @@
               var reader = new FileReader();
               
               reader.onload = function (e) {
-                  $('#profile-img-tag').attr('src', e.target.result);
+                  $('#prod-img-tag').attr('src', e.target.result);
               }
               reader.readAsDataURL(input.files[0]);
           }
         }
-        $("#profile-img").change(function(){
+        $("#prod-img").change(function(){
             readURL(this);
         });
     });

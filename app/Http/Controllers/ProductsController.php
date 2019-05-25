@@ -45,16 +45,13 @@ class ProductsController extends Controller
     {
         // dd($request->all());
         $file = $request->file;
-        if($file) {
-            $image = $this->saveProduct($file, $request);
-        } else {
-            $image = "";
-        }
+        $image = $this->saveProduct($file, $request);
         
         $products = new Products;
 
         $products->product_id = Input::get('product_id');
         $products->name = Input::get('name');
+        $products->original_price = Input::get('original_price');        
         $products->price = Input::get('price');        
         $products->image = $image;        
         $products->save();
@@ -101,16 +98,14 @@ class ProductsController extends Controller
     {
         // dd($request->all());
         $img = $request->file;
-        if($img) {
-            $image = $this->saveProduct($img, $request);
-        } else {
-            $image = "";
-        }
-
+        // dd($img);
+        $image = $this->saveProduct($img, $request);
+        
         $products = Products::find($request->id);
         $products->product_id = Input::get('product_id');
         $products->name = Input::get('name');
         $products->price = Input::get('price');
+        $products->original_price = Input::get('original_price');
         $products->image = $image;
         $products->save();
 

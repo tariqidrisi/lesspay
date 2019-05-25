@@ -34,7 +34,7 @@
               
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
-                        <img class="card-img-top prod-image" src="{{ env('APP_URL') }}{{ Storage::url("$med->image") }}" alt="{{ $med->product_id }}">
+                        <img class="card-img-top prod-image" src="{{ Storage::url("{$med->image}") }}" alt="{{ $med->product_id }}">
                         <div class="card-body">
                             <h4 class="card-title" ><span style="font-size: 15px;color:#007bff" class="prod-name">{{ $med->name }}</a></h4>
                             <div class="row">

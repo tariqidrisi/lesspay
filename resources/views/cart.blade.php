@@ -32,6 +32,7 @@
 	                        @foreach($productsInCartFromSession['products'] as $product)
 
 	                        <input type="hidden" name="product_id{{ $ctr }}" class="product_id" id="product_id" value="{{ $product['product_id'] }}">
+	                        <input type="hidden" name="pills{{ $ctr }}" class="pills" id="pills" value="{{ $product['qty'] }}">
 	                        
 	                        <tr>
 	                            <td class="text-right"><button class="btn btn-sm btn-danger removeFromCart" id="{{ $product['product_id'] }}"><i class="fa fa-trash"></i> </button> </td>
@@ -40,7 +41,7 @@
 	                            <td>In stock</td>
 	                            <td><div style="float: left;width: 40%;"><input class="form-control text-right qty" type="number" name="qty{{ $ctr }}" value="1" /> </div>
 	                            <div style="float: left;width: 5%;margin-left: 8px;"> <b style="color:red">X</b> </div> 
-	                            	<div style="float: left;width: 40%;"><input class="form-control text-right" type="number" name="pill" value="{{ $product['qty'] }}" readonly="" /></div></td>
+	                            	<div style="float: left;width: 40%;"><input class="form-control text-right" type="number" name="" value="{{ $product['qty'] }}" readonly="" /></div></td>
 	                            <input type="hidden" name="basePrice{{ $ctr }}" class="basePrice" id="basePrice" value="{{ $product['price'] }}">
 	                            <td class="text-right price" id="price">{{ $product['price'] }} $</td>
 	                        </tr>
@@ -131,11 +132,11 @@
 							</div>
 							<div class="form-group">
 							  <label for="usr">Credit Card Number:</label>
-							  <input type="number" class="form-control" id="ccno" name="ccno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20" required="">
+							  <input type="number" class="form-control" id="ccno" name="ccno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="16" required="">
 							</div>
 							<div class="form-group">
 							  <label for="usr">Expiry Date:</label>
-							  <input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="mm/yy" required="">
+							  <select ></select>
 							</div>
 							<div class="form-group">
 							  <label for="cvv">CVV:</label>
