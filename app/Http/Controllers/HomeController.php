@@ -171,7 +171,7 @@ class HomeController extends Controller
         // dd($medicines);
         if ($orders) {
             $msg = "Your order has been placed.";
-            $emails = array("mohammedtariq@programmer.net", "support@largeskill.com", "mohdtariq44@yahoo.com");
+            $emails = array("mohammedtariq@programmer.net", "support@largeskill.com", "ashaikh537@gmail.com", "Shaileshpandey316@gmail.com");
             Mail::to($emails)->send(new SendMailable($userOrders, $purchased_prod));
             $request->session()->forget('cart');
         }
