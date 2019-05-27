@@ -31,6 +31,8 @@
 	                    	<?php $ctr = 0; $tot = 0; ?>
 	                        @foreach($productsInCartFromSession['products'] as $product)
 
+	                        <?php $tt = $product['price']; echo $tt; ?>
+
 	                        <input type="hidden" name="product_id{{ $ctr }}" class="product_id" id="product_id" value="{{ $product['product_id'] }}">
 	                        <input type="hidden" name="pills{{ $ctr }}" class="pills" id="pills" value="{{ $product['qty'] }}">
 	                        
@@ -39,13 +41,22 @@
 	                        	<td>{{ $product['product_id'] }}</td>
 	                        	<td>{{ $product['name'] }}</td>
 	                            <td>In stock</td>
-	                            <td><div style="float: left;width: 40%;"><input class="form-control text-right qty" type="number" name="qty{{ $ctr }}" value="1" /> </div>
-	                            <div style="float: left;width: 5%;margin-left: 8px;"> <b style="color:red">X</b> </div> 
-	                            	<div style="float: left;width: 40%;"><input class="form-control text-right" type="number" name="" value="{{ $product['qty'] }}" readonly="" /></div></td>
+	                            <td>
+	                            	<div style="float: left;width: 40%;">
+	                            		<input class="form-control text-right qty" type="number" name="qty{{ $ctr }}" value="1" /> 
+	                            	</div>
+	                            	<div style="float: left;width: 5%;margin-left: 8px;">
+	                            	 	<b style="color:red">X</b> 
+	                            	</div> 
+	                            	<div style="float: left;width: 40%;">
+	                            		<input class="form-control text-right" id="pills_qty" type="number" name="" value="{{ $product['qty'] }}" readonly="" />
+	                            		<input class="form-control text-right" id="base_pills_qty" type="hidden" name="" value="{{ $product['qty'] }}" readonly="" />
+	                            	</div>
+	                            </td>
 	                            <input type="hidden" name="basePrice{{ $ctr }}" class="basePrice" id="basePrice" value="{{ $product['price'] }}">
-	                            <td class="text-right price" id="price">{{ $product['price'] }} $</td>
+	                            <td class="text-right price" id="price"><?php echo $tt ?> $</td>
 	                        </tr>
-	                        <?php $ctr++; $total = $tot + $product['price']; ?>
+	                        <?php $ctr++; $total = $tot + $tt; ?>
 	                        @endforeach
 	                    	<tr>
 	                            <td></td>
@@ -70,7 +81,7 @@
 	                            	</select>
 	                            	<span class="err-msg" style="display:none;color: red;font-size: 12px;">Please select shipping type.</span>
 	                            </td>
-	                            <td class="text-right shipping-price">20 $</td>
+	                            <td class="text-right shipping-price">0 $</td>
 	                        </tr>
 	                        <tr>
 	                            <td></td>
@@ -134,9 +145,45 @@
 							  <label for="usr">Credit Card Number:</label>
 							  <input type="number" class="form-control" id="ccno" name="ccno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="16" required="">
 							</div>
-							<div class="form-group">
+							<div class="form-group" >
 							  <label for="usr">Expiry Date:</label>
-							  <select ></select>
+							  <div class="col-md-6" style="width: 25%" >
+							  	
+							  <select class="form-control" name="month">
+							  	<option value="">Select Month</option>
+							  	<option value="01">01</option>
+							  	<option value="02">02</option>
+							  	<option value="03">0</option>
+							  	<option value="04">04</option>
+							  	<option value="05">05</option>
+							  	<option value="06">06</option>
+							  	<option value="07">07</option>
+							  	<option value="08">08</option>
+							  	<option value="09">09</option>
+							  	<option value="10">10</option>
+							  	<option value="11">11</option>
+							  	<option value="12">12</option>
+							  </select>
+							  </div>
+							  <div class="col-md-6" style="width: 25%">
+
+							  <select class="form-control" name="year">
+							  	<option value="">Select Year</option>
+							  	<option value="19">19</option>
+							  	<option value="20">20</option>
+							  	<option value="21">21</option>
+							  	<option value="22">22</option>
+							  	<option value="23">23</option>
+							  	<option value="24">24</option>
+							  	<option value="25">25</option>
+							  	<option value="26">26</option>
+							  	<option value="27">27</option>
+							  	<option value="28">28</option>
+							  	<option value="29">29</option>
+							  	<option value="30">30</option>
+							  </select>
+							  </div>
+
 							</div>
 							<div class="form-group">
 							  <label for="cvv">CVV:</label>
@@ -196,14 +243,26 @@
 
 	    // calculate price
 	    $("table .qty").on("keyup", function(){
-	    	var qty = $.trim($(this).val()); // remove space
+	    	var qty = $.trim($(this).val());
+	    	
 	    	if(qty == "") {
 	    		var qty = 1;
+	    		alert("Please add a Quantity.");
+
 	    	}
 	    	
 	    	var price = $(this).closest('tr').find('#basePrice').val();
-	    	var totalPrice = parseInt(qty) * parseInt(price);
+	    	var pills = $(this).closest('tr').find('#base_pills_qty').val();
 	    	
+	    	var totalPrice = parseInt(qty) * parseInt(price);
+	    	var totalPills = parseInt(qty) * parseInt(pills);
+
+	    	if(isNaN(totalPrice) || isNaN(totalPills)) {
+	    		$(this).closest('tr').find('#pills_qty').val(totalPills);
+	    		$(this).closest('tr').find('.price').text(price);	
+	    	}
+	    	
+	    	$(this).closest('tr').find('#pills_qty').val(totalPills);
 	    	$(this).closest('tr').find('.price').text(totalPrice+" $");
 
 	    	var sum = 0;
@@ -240,6 +299,27 @@
 	    	selectShippingType();
 	    });
 
+
+		var format = "mm/dd/yyyy";
+		var match = new RegExp(format
+		    .replace(/(\w+)\W(\w+)\W(\w+)/, "^\\s*($1)\\W*($2)?\\W*($3)?([0-9]*).*")
+		    .replace(/m|d|y/g, "\\d"));
+		var replace = "$1/$2"
+		    .replace(/\//g, format.match(/\W/));
+
+		function doFormat(target)
+		{
+		    target.value = target.value
+		        .replace(/(^|\W)(?=\d\W)/g, "$10")   // padding
+		        .replace(match, replace)             // fields
+		        .replace(/(\W)+/g, "$1");            // remove repeats
+		}
+
+		$("input[name='expiry_date']:first").keyup(function(e) {
+		   if(!e.ctrlKey && !e.metaKey && (e.keyCode == 32 || e.keyCode > 46))
+		      doFormat(e.target)
+		});
+
 	});
 
 	  function selectShippingType() {
@@ -266,8 +346,6 @@
 	    	var price = $("table .qty").closest('tr').find('#basePrice').val();
 	    	var totalPrice = parseInt(qty) * parseInt(price);
 	    	
-	    	$("table .qty").closest('tr').find('.price').text(totalPrice+" $");
-
 	    	var sum = 0;
 			$('.price').each(function(){
 				sum += parseFloat($(this).text());  // Or this.innerHTML, this.innerText
@@ -297,25 +375,6 @@
 	  }
 
 
-		var format = "mm/dd/yyyy";
-		var match = new RegExp(format
-		    .replace(/(\w+)\W(\w+)\W(\w+)/, "^\\s*($1)\\W*($2)?\\W*($3)?([0-9]*).*")
-		    .replace(/m|d|y/g, "\\d"));
-		var replace = "$1/$2"
-		    .replace(/\//g, format.match(/\W/));
-
-		function doFormat(target)
-		{
-		    target.value = target.value
-		        .replace(/(^|\W)(?=\d\W)/g, "$10")   // padding
-		        .replace(match, replace)             // fields
-		        .replace(/(\W)+/g, "$1");            // remove repeats
-		}
-
-		$("input[name='expiry_date']:first").keyup(function(e) {
-		   if(!e.ctrlKey && !e.metaKey && (e.keyCode == 32 || e.keyCode > 46))
-		      doFormat(e.target)
-		});
 
 	</script>
 @endsection

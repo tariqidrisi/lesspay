@@ -39,7 +39,7 @@ class SendMailable extends Mailable
         // foreach($get_orders as $ord_id) {
         //     $order_ids[] = $ord_id['product_id'];
         // }
-        dd($orders);
+        // dd($user_data);
         return $this->view('email', compact('user_data', 'orders'));
     }
 }

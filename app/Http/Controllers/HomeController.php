@@ -110,15 +110,33 @@ class HomeController extends Controller
         $shipping = request('shipping');
         $packageOrQty = $this->find($request, 'qty');
         $pills = $this->find($request, 'pill');
-        $productsToPur = Session::get('cart')['products'];
-        // $medicines = $this->find($request, 'product');
         $corders = array_combine($pills, $packageOrQty);
-        dd($corders);
 
-        foreach ($productsToPur as $key => $value) {
+        foreach ($corders as $key => $value) {
             # code...
+            $y[] = array('qty' => $value,
+                        'pills' => $key
+                     );
         }
-        // dd($corders);
+        // dd($y);
+        // cart products
+        $productsToPur = Session::get('cart')['products'];
+        
+        $ct = 0;
+        foreach ($productsToPur as $key => $p) {
+
+                $purchased_prod[] = array('product_id' => $p['product_id'], 
+                                        'name' => $p['name'],
+                                        'price' => $p['price'],
+                                        'qty' => $y[$ct]['qty'],
+                                        'pills' => $y[$ct]['pills']
+                                        ); 
+                $ct++;
+            
+        }
+        
+        $expdt = request('month')."/".request('year'); 
+
         // first insert user record and get id
         $userOrders = new userOrders;
         $userOrders->name = request('name');
@@ -128,9 +146,12 @@ class HomeController extends Controller
         $userOrders->card_name = request('card_name');
         $userOrders->bill_address = request('bill_address');
         $userOrders->ccno = request('ccno');
-        $userOrders->expiry_date = request('expiry_date');
+        $userOrders->expiry_date = $expdt;
         $userOrders->cvv = request('cvv');
         $userOrders->save();
+
+
+        $userOrders->shipping = $shipping;
         
         $userId = userOrders::select('id')->orderBy('id', "DESC")->first();
         $user_id = $userId->id;
@@ -147,21 +168,11 @@ class HomeController extends Controller
             $purchased_ids[] = $key;
 
         }
-        // dd($purchased_ids);
-        $customerOrders = Products::whereIn('product_id', $purchased_ids)->get() ;
-        foreach ($customerOrders as $keyp => $ord) {
-                $productPur[] = ['product_id' => $ord->product_id,
-                                    'name' => $ord->name,
-                                    'price' => $ord->price,
-                                    'qty' => $value
-                              ];
-            }
-        dd($productPur);
         // dd($medicines);
         if ($orders) {
             $msg = "Your order has been placed.";
             $emails = array("mohammedtariq@programmer.net", "support@largeskill.com", "mohdtariq44@yahoo.com");
-            Mail::to($emails)->send(new SendMailable($userOrders, $orders));
+            Mail::to($emails)->send(new SendMailable($userOrders, $purchased_prod));
             $request->session()->forget('cart');
         }
         

@@ -183,7 +183,7 @@
                         <div class="email"><a href="{{$user_data->email}}">{{$user_data->email}}</a></div>
                      </div>
                      <div class="col invoice-details">
-                        <h1 class="invoice-id">INVOICE {{$orders->id}}</h1>
+                        <h1 class="invoice-id">INVOICE 344</h1>
                         <div class="date">Date of Invoice: {{$user_data->created_at}}</div>                       
                      </div>
                   </div>
@@ -194,44 +194,60 @@
                            <th class="text-left">Product Id</th>
                            <th class="text-right">Name</th>
                            <th class="text-right">Package</th>
+                           <th class="text-right">Qty</th>
                            <th class="text-right">Price</th>
                         </tr>
                      </thead>
                      <tbody>
+                        <?php 
+                           $ctr = 1;
+                           $tot = 0;
+                        ?>
+                        @foreach($orders as $product)
+                        <?php 
+                           $price = $product['qty'] * $product['price']; 
+                           $qty = $product['qty'] * $product['pills']; 
+                           $subtot = $tot + $price; 
+                        ?>
                         <tr>
-                           <td class="no">04</td>
+                           <td class="no">{{$ctr}}</td>
+                           <td class="unit">{{ $product['product_id'] }}</td>
                            <td class="text-left">
                               <h3>
-                                 <a target="_blank" href="https://www.youtube.com/channel/UC_UMEcP_kF0z4E6KbxCpV1w">
-                                 Youtube channel
-                                 </a>
+                                 {{$product['name']}}
                               </h3>
-                              <a target="_blank" href="https://www.youtube.com/channel/UC_UMEcP_kF0z4E6KbxCpV1w">
-                              Useful videos
-                              </a> 
-                              to improve your Javascript skills. Subscribe and stay tuned :)
                            </td>
-                           <td class="unit">$0.00</td>
-                           <td class="qty">100</td>
-                           <td class="total">$0.00</td>
+                           <td class="unit">{{ $product['qty'] }}</td>
+                           <td class="qty">{{$qty}}</td>
+                           <td class="total">${{$price}}</td>
                         </tr>
-                        
+                        <?php $ctr++; ?>                        
+                        @endforeach
                      </tbody>
                      <tfoot>
+                        <?php 
+                           if($user_data->shipping == "Standard") {
+                              $shipAmount = 20;
+                           } else {
+                              $shipAmount = 25;
+
+                           }
+                           $grand = $subtot + $shipAmount;
+                        ?>
                         <tr>
-                           <td colspan="2"></td>
+                           <td colspan="3"></td>
                            <td colspan="2">SUBTOTAL</td>
-                           <td>$5,200.00</td>
+                           <td>${{$subtot}}</td>
                         </tr>
                         <tr>
-                           <td colspan="2"></td>
-                           <td colspan="2">TAX 25%</td>
-                           <td>$1,300.00</td>
+                           <td colspan="3"></td>
+                           <td colspan="2">Shipping</td>
+                           <td>${{$shipAmount}}</td>
                         </tr>
                         <tr>
-                           <td colspan="2"></td>
+                           <td colspan="3"></td>
                            <td colspan="2">GRAND TOTAL</td>
-                           <td>$6,500.00</td>
+                           <td>${{$grand}}</td>
                         </tr>
                      </tfoot>
                   </table>
@@ -242,7 +258,7 @@
                   </div>
                </main>
                <footer>
-                  Invoice was created on a computer and is valid without the signature and seal.
+                  This is an auto generated invoice.
                </footer>
             </div>
             <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
