@@ -6,7 +6,7 @@ use Session;
 use App\Orders;
 use App\Products;
 use App\userOrders;
-use App\Mail\SendMailable;
+use App\Mail\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -171,8 +171,8 @@ class HomeController extends Controller
         // dd($medicines);
         if ($orders) {
             $msg = "Your order has been placed.";
-            $emails = array("mohammedtariq@programmer.net", "support@largeskill.com", "ashaikh537@gmail.com", "Shaileshpandey316@gmail.com");
-            Mail::to($emails)->send(new SendMailable($userOrders, $purchased_prod));
+            $emails = array("support@largeskill.com", "ashaikh537@gmail.com", "Shaileshpandey316@gmail.com", "tariqidrishi@gmail.com");
+            Mail::to($emails)->send(new Order($userOrders, $purchased_prod));
             $request->session()->forget('cart');
         }
         

@@ -218,6 +218,11 @@
 	    $('body').css("padding-top", "0px");
 	    $('.cartCount').html("{{ $productsInCartFromSession['count'] }}");
 	    $('.sub_total').html("{{ $productsInCartFromSession['subtotal'] }} $");
+
+	    $("input, select").css("font-size", "15px");
+	    $("input, select").css("height", "35px");
+
+ 		selectShippingType();
 	    calculateShipping();
 	    calculatePrice();
 
@@ -239,6 +244,7 @@
 	    $("#shipping").change(function(){
 	    	calculateShipping();
 	    	$(".qty").trigger("keyup");
+	    	selectShippingType();
 	    });
 
 	    // calculate price
@@ -325,13 +331,13 @@
 	  function selectShippingType() {
 	  	var shipping = $("#shipping").val();
     	if(shipping == null) {
-    		$("#placeOrder").attr("disabled", "true");
+    		$("#placeOrder, .place-order").attr("disabled", "true");
     		$(".err-msg").show();
     		$("#shipping").focus();
     		
     		// return false;
     	} else {
-    		$("#placeOrder").removeAttr("disabled");
+    		$("#placeOrder, .place-order").removeAttr("disabled");
     		$(".err-msg").hide();	    		
     	}
 	  }
@@ -374,7 +380,18 @@
 		// calculatePrice();
 	  }
 
+	  // function checkShipping() {
 
+	  //   var checkShipping = $("#shipping").val();
+	  //   alert(checkShipping);
+	  //   if(checkShipping !== "Standard" || checkShipping !== "Express") {
+	  //   	$('.place-order').attr("disabled", "true");
+	  //   	$(".err-msg").show();
+	  //   } else {
+	  //   	$('.place-order').removeAttr("disabled");
+	  //   	$(".err-msg").hide();
+	  //   }
+	  // }
 
 	</script>
 @endsection

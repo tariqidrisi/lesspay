@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendMailable extends Mailable
+class Order extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -35,7 +35,7 @@ class SendMailable extends Mailable
     {
         $user_data = $this->user_data;
         $orders = $this->orders;
-
+        // dd($user_data);
         // foreach($get_orders as $ord_id) {
         //     $order_ids[] = $ord_id['product_id'];
         // }

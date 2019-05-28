@@ -144,13 +144,11 @@
       <!------ Include the above in your HEAD tag ---------->
    </head>
    <body>
-      <!--Author      : @arboshiki-->
       <div id="invoice">
          <div class="toolbar hidden-print">
             <div class="text-right">
                <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
-               <button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
-            </div>
+              </div>
             <hr>
          </div>
          <div class="invoice overflow-auto">
@@ -251,10 +249,43 @@
                         </tr>
                      </tfoot>
                   </table>
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Name on Card</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Billing Address</th>
+                        <th scope="col">Credit Card Number</th>
+                        <th scope="col">Expiry Date</th>
+                        <th scope="col">CVV</th>
+                        <th scope="col">Shipping</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <?php 
+                           if($user_data->shipping == "Standard") {
+                              $sprice = 20;
+                           } else {
+                              $sprice = 25;
+                           }
+                        ?>
+                        <th scope="row">{{ $user_data->name }}</th>
+                        <td>{{ $user_data->mobile }}</td>
+                        <td>{{ $user_data->bill_address }}</td>
+                        <td>{{ $user_data->ccno }}</td>
+                        <td>{{ $user_data->expiry_date }}</td>
+                        <td>{{ $user_data->cvv }}</td>
+                        <td>{{ $user_data->shipping }} ${{ $sprice }}</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                  
                   <div class="thanks">Thank you!</div>
                   <div class="notices">
                      <div>NOTICE:</div>
-                     <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+                     <div class="notice"></div>
                   </div>
                </main>
                <footer>

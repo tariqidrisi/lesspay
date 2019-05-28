@@ -53,6 +53,7 @@ class ProductsController extends Controller
         $products->name = Input::get('name');
         $products->original_price = Input::get('original_price');        
         $products->price = Input::get('price');        
+        $products->qty = Input::get('qty');        
         $products->image = $image;        
         $products->save();
 
@@ -97,15 +98,23 @@ class ProductsController extends Controller
     public function update(Request $request)
     {
         // dd($request->all());
-        $img = $request->file;
-        // dd($img);
-        $image = $this->saveProduct($img, $request);
+        $img = request('edit_img_path');
+        
+        // dd($dimg);
+        if (array_key_exists("file",$request->all())){
+            $image = $request->file;
+            $image = $this->saveProduct($image, $request);
+        } else {
+            $image = $img;
+        }
+        // dd($image);
         
         $products = Products::find($request->id);
         $products->product_id = Input::get('product_id');
         $products->name = Input::get('name');
         $products->price = Input::get('price');
         $products->original_price = Input::get('original_price');
+        $products->qty = Input::get('qty');
         $products->image = $image;
         $products->save();
 
@@ -146,7 +155,6 @@ class ProductsController extends Controller
         } else {
             $image = "";
         }
-
         return $image;        
     }
 }
