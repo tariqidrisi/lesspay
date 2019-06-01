@@ -31,7 +31,7 @@
 	                    	<?php $ctr = 0; $tot = 0; ?>
 	                        @foreach($productsInCartFromSession['products'] as $product)
 
-	                        <?php $tt = $product['price']; echo $tt; ?>
+	                        <?php $tt = $product['price']; ?>
 
 	                        <input type="hidden" name="product_id{{ $ctr }}" class="product_id" id="product_id" value="{{ $product['product_id'] }}">
 	                        <input type="hidden" name="pills{{ $ctr }}" class="pills" id="pills" value="{{ $product['qty'] }}">
